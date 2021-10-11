@@ -72,8 +72,11 @@ int main(int argc, char *argv[]) {
   int i, j, x, y, n, m, c;
   int a[NMAX];
 
+  if (argc < 4) {
+    printf("Usage: ./%s [seed] [max_time] [instance]\n", __FILE__);
+    exit(EXIT_SUCCESS);
+  }
   /* n nodes, m edges */
-
   seed = atoi(argv[1]);
   max_time = atoi(argv[2]);
   fp = fopen(argv[3], "r");
