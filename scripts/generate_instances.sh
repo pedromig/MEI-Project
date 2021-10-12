@@ -15,11 +15,14 @@ RESET_COLOR='\033[0m'
 BOLD=$(tput bold)
 NORM=$(tput sgr0)
 
-function help() {
+help() {
 cat<<EOF
-Interval Scheduling Problem (ISP) instance generator helper util.
+Exam Scheduling Problem (ESP) instance generator helper util.
 
 Usage: ${0} "{N-EXAMS}" "{PROBABILITY}" "{SEED}"
+
+Output:
+  Instance File: esp_{N-EXAMS}_{PROBABILITY}_{SEED}.dat
 
 Examples:
   user@computer$ ${0} 20 0.3 123213 
@@ -27,17 +30,22 @@ Examples:
 EOF
 }
 
-[ $# -ne 3 ] && help && exit 1 || mkdir -p $INSTANCE_DIR;
+if [ $# -ne 3 ]; then  
+  help && exit 1 
+fi
 
+mkdir -p "$INSTANCE_DIR";
 echo "${BOLD}Beginning Instance Generation...${NORM}"
 for n in $1; do
   for p in $2; do 
     for s in $3; do 
-      inst="$INSTANCE_DIR/isp_${n}_${p}_${s}.dat"
-      printf " => ${BLUE}GENERATING $inst\t\t${RESET_COLOR}"
-        "./$SCRIPTS_DIR/gen.py" -n "$n" -p "$p" -s "$s" -o "$inst" 2> /dev/null \
-            && echo -e "${GREEN}${BOLD}[DONE]${NORM}${RESET_COLOR}" \
-            || echo -e "${RED}${BOLD}[FAILED]${NORM}${RESET_COLOR}"
+      inst="$INSTANCE_DIR/esp_${n}_${p}_${s}.dat"
+      if [ ! -f "$inst" ]; then
+        printf " => %bGENERATING %s\t\t %b" "${BLUE}" "$inst" "${RESET_COLOR}" 
+          "./$SCRIPTS_DIR/gen.py" -n "$n" -p "$p" -s "$s" -o "$inst"\
+            && printf "%b${BOLD}[DONE]${NORM}%b\n" "${GREEN}" "${RESET_COLOR}" \
+            || printf "%b${BOLD}[FAILED]${NORM}%b\n" "${RED}" "${RESET_COLOR}"
+      fi
     done
   done 
 done

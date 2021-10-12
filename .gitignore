@@ -41,6 +41,7 @@ vignettes/*.pdf
 # Other directories
 bin/
 instances/*
+out/*
 
 # MacOS
 .DS_Store
