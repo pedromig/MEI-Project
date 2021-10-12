@@ -41,7 +41,7 @@ for i in $1; do
     s=$RANDOM;
     printf " => %bRUNNING %s\t\t %b\n" "${BLUE}" "$i" "${RESET_COLOR}" 
     for exec in "$BIN_DIR"/*; do
-      out="$(basename ${i%.*})_${t}_${s}_$(basename $exec).out"
+      out="$(basename ${i%.*})_${t}_${s}$(basename $exec).out"
       printf "    -> %bGENERATING %s\t\t %b" "${BLUE}" "$out" "${RESET_COLOR}" 
       ./$exec "$s" "$t" "$i" > "$OUT_DIR/$out" \
         && printf "%b${BOLD}[DONE]${NORM}%b\n" "${GREEN}" "${RESET_COLOR}" \
