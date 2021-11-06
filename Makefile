@@ -12,7 +12,7 @@ GEN_SEEDS := 0 1 2 3
 # Run Paramters
 RUN_INSTANCES := $(INSTANCE_DIR)/* 
 RUN_TIMES 		:= 60 120 180 240 300#(seconds)
-RUN_SEEDS 		:= 0 
+RUN_SEEDS 		:= 0 1 2 3
 
 # Terminal Colors and Fonts Weights
 ifneq (,$(findstring xterm,${TERM}))

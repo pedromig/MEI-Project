@@ -29,12 +29,11 @@ void shuffle(int n, int seed) {
 
 double backtrack(int a[], int pos, int col, int n) {
   int i;
-  int c[NMAX];
+  int c[NMAX + 1];
 
   end = clock();
   cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
 
-  /* complete solution found*/
   if (pos == n) {
     found = 1;
     return cpu_time_used;
@@ -44,22 +43,18 @@ double backtrack(int a[], int pos, int col, int n) {
     return cpu_time_used;
   }
 
-  /* initialize possible colors*/
-  for (i = 0; i <= col; i++)
+  for (i = 1; i <= col; i++)
     c[i] = 1;
 
-  /* delete colors that are used by adjacent nodes*/
   for (i = 0; i < pos; i++) {
     if (M[p[pos]][p[i]] == 1) {
       c[a[p[i]]] = 0;
     }
   }
 
-  /* insert a color in the node.*/
-  for (i = 0; i < col; i++) {
+  for (i = 1; i <= col; i++) {
     if (c[i] == 1) {
       a[p[pos]] = i;
-      /* if a coloring was found:*/
       cpu_time_used = backtrack(a, pos + 1, col, n);
       if ((found == 1) || (found == -1))
         return cpu_time_used;
@@ -72,11 +67,11 @@ int main(int argc, char *argv[]) {
   int i, j, x, y, n, m, c;
   int a[NMAX];
 
-  if (argc < 4) {
+ if (argc < 4) {
     printf("Usage: ./%s [seed] [max_time] [instance]\n", __FILE__);
     exit(EXIT_SUCCESS);
   }
-  /* n nodes, m edges */
+
   seed = atoi(argv[1]);
   max_time = atoi(argv[2]);
   fp = fopen(argv[3], "r");
@@ -101,18 +96,18 @@ int main(int argc, char *argv[]) {
   }
   start = clock();
 
-  c = 1;
-  while (c++) {
+  c = 0;
+  while (++c) {
     found = 0;
-    a[0] = 1;
+    a[p[0]] = 1;
     cpu_time_used = backtrack(a, 1, c, n);
-    if (found == 1) { // found the minimum with c+1
+    if (found == 1) { // found the minimum with c
       printf("%d ", c);
-      printf("%lf \n", cpu_time_used);
+      printf("%lf\n", cpu_time_used);
       break;
     } else if (found == -1) { // amount of time exceeded
       printf("-1 ");
-      printf("%lf \n", cpu_time_used);
+      printf("%lf\n", cpu_time_used);
       break;
     }
   }
