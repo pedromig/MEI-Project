@@ -42,6 +42,7 @@ vignettes/*.pdf
 bin/
 instances/
 out/*
+plots/
 
 # MacOS
 .DS_Store
