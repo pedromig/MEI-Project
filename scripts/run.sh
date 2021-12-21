@@ -2,12 +2,12 @@
 
 # Project Directories
 PROJECT_ROOT="$(dirname "$0")/.."
-BIN_DIR="$PROJECT_ROOT/bin"
+BIN_DIR="$PROJECT_ROOT/build"
 OUT_DIR="$PROJECT_ROOT/out"
 
 # Master file 
 ## Contains data for all the runs
-MASTER_FILE="data_$(date +"%d_%m_%Y").csv"
+MASTER_FILE="data_$(date +"%d_%m_%Y_%T").csv"
 
 # Terminal Colors
 if echo "$TERM" | grep -q "xterm"; then
