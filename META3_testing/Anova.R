@@ -1,5 +1,5 @@
 #load datasets
-df <- read.csv(file = '/Users/gabriel/Downloads/data-3.csv')
+df <- read.csv(file = 'data-3.csv')
 df1 <- read.csv(file = 'code_1_data.csv')
 df2 <- read.csv(file = 'code_2_data.csv')
 
@@ -21,8 +21,8 @@ df$individual <- inputs
 ###------
 
 # one way anova for the 4th hypothesis
-aov4_1.out <- aov(time ~ instance_seed, data = df1)
-aov4_2.out <- aov(time ~ instance_seed, data = df2)
+aov4_1.out <- aov(time ~ as.factor(instance_seed), data = df1)
+aov4_2.out <- aov(time ~ as.factor(instance_seed), data = df2)
 
 print("One way anova para a instance seed (4)")
 print("df1")
@@ -47,8 +47,8 @@ print(kruskal4_2)
 #--------------------------------------------------#
 
 # one way anova for the 5th hypothesis
-aov5_1.out <- aov(time ~ solver_seed, data = df1)
-aov5_2.out <- aov(time ~ solver_seed, data = df2)
+aov5_1.out <- aov(time ~ as.factor(solver_seed), data = df1)
+aov5_2.out <- aov(time ~ as.factor(solver_seed), data = df2)
 
 print("One way anova para a solver seed (5)")
 print("df1")
